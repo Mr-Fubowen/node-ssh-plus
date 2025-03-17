@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/node_modules": false,
+        "**/dist": false
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true
+    },
+    "editor.formatOnSave": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "package.json": "package-lock.json,.gitignore,.prettierrc,.npmrc,README*.md,.editorconfig,changelog.md"
+    },
+    "svg.preview.background": "editor"
+}
