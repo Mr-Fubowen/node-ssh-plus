@@ -1,0 +1,34 @@
+{
+    "name": "ssh-node",
+    "version": "1.0.1",
+    "description": "增强 node-ssh 库中的功能",
+    "main": "src/index.js",
+    "scripts": {
+        "prepublish": "npm version patch",
+        "test": "mocha"
+    },
+    "files": [
+        "src/",
+        "README.md"
+    ],
+    "repository": {
+        "type": "gitee",
+        "url": "https://gitee.com/fu-ws/ssh-node"
+    },
+    "keywords": [
+        "node-ssh",
+        "ssh",
+        "加密连接"
+    ],
+    "author": "fubowen",
+    "license": "MIT",
+    "dependencies": {
+        "date-fns": "^4.1.0",
+        "fs-extra": "^11.3.0",
+        "lodash": "^4.17.21",
+        "node-ssh": "^13.2.0"
+    },
+    "devDependencies": {
+        "mocha": "^11.0.1"
+    }
+}
