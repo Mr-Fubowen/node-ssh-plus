@@ -1,4 +1,4 @@
-# SSH NODE
+# Node SSH Plus
 
 #### 介绍
 
@@ -42,5 +42,5 @@ ssh.close()
 
 #### 贡献
 
-1.  本仓库发布在码云(Gitee), 有任何问题请提交 Issues
-2.  仓库地址 [ssh-node](https://gitee.com/fu-ws/ssh-node)
+1.  本仓库同步发布在[Github](https://github.com/Mr-Fubowen/node-ssh-plus)和[码云](https://gitee.com/fu-ws/ssh-node),
+2.  有任何问题请提交 Issues
