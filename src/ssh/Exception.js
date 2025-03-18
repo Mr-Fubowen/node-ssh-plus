@@ -27,8 +27,15 @@ class ConnectError extends SSHClientError {
     }
 }
 
+class AsyncFunctionError extends SSHClientError {
+    constructor(error) {
+        super(error)
+    }
+}
+
 module.exports = {
     ReconnectError,
     MaxRetriesExceededError,
-    ConnectError
+    ConnectError,
+    AsyncFunctionError
 }

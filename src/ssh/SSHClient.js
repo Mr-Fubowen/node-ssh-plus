@@ -14,7 +14,12 @@ const { NodeSSH } = require('node-ssh')
 
 const StatusEnum = require('./StatusEnum')
 const IsChangedEnum = require('./IsChangedEnum')
-const { ConnectError, ReconnectError, MaxRetriesExceededError } = require('./Exception')
+const {
+    ConnectError,
+    ReconnectError,
+    MaxRetriesExceededError,
+    AsyncFunctionError
+} = require('./Exception')
 
 class SSHClient extends NodeSSH {
     #sftpCache = new Map()
@@ -587,7 +592,7 @@ class SSHClient extends NodeSSH {
     async upload(client, server, onProgress) {
         const stat = await fs.stat(client)
         if (stat.isDirectory()) {
-            return this.uploadFolder(client, server, onProgress)
+            return this.uploadPath(client, server, onProgress)
         }
         const name = basename(client)
         const serverFile = posix.join(server, name)
@@ -630,7 +635,7 @@ class SSHClient extends NodeSSH {
         }
     }
 
-    async uploadFolder(clientPath, serverPath, onProgress) {
+    async uploadPath(clientPath, serverPath, onProgress) {
         await fs.ensureDir(clientPath)
         const sftp = await this.sftp()
         const successs = []
@@ -727,7 +732,7 @@ class SSHClient extends NodeSSH {
         }
     }
 
-    async downloadFolder(clientPath, serverPath, onProgress) {
+    async downloadPath(clientPath, serverPath, onProgress) {
         await fs.ensureDir(clientPath)
         const sftp = await this.sftp()
         const successs = []
@@ -1011,7 +1016,7 @@ class SSHClient extends NodeSSH {
             }
         }
         if (serverStat.isDirectory()) {
-            await this.downloadFolder(clientPath, serverPath)
+            await this.downloadPath(clientPath, serverPath)
         } else {
             await this.downloadFile(clientPath, serverPath)
         }
@@ -1103,6 +1108,31 @@ class SSHClient extends NodeSSH {
                 await this.sleep(ms)
             }
         }
+    }
+
+    async toProxy() {
+        const handle = {
+            get: (target, prop, receiver) => {
+                let value = target[prop]
+                if (!isAsyncFunction(value)) {
+                    return Reflect.get(target, prop, receiver)
+                }
+                const fn = async (...args) => {
+                    try {
+                        return await value.call(target, ...args)
+                    } catch (error) {
+                        const custom = new AsyncFunctionError(error)
+                        this.emitter.emit('error', custom, this.options)
+                        throw error
+                    }
+                }
+                Object.defineProperty(fn, 'length', {
+                    value: value.length
+                })
+                return fn
+            }
+        }
+        return new Proxy(this, handle)
     }
 
     static async connect(options) {

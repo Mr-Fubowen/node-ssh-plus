@@ -1,37 +1,46 @@
-# ssh-node
+# SSH NODE
 
 #### 介绍
+
 对 node-ssh 包进行适当的扩展使其更加易用
 
-#### 软件架构
-软件架构说明
+#### 使用
 
+```js
+const opts = {
+    host: '',
+    port: 22,
+    password: '',
+    username: 'root'
+}
+const ssh = await SSHClient.connect(opts)
+const roots = await ssh.readPath('/')
+// 建立链接的代价是高昂的, 连续使用请保存 SSHClient 实例
+// 在完全使用完毕后关闭连接
+ssh.close()
+```
 
-#### 安装教程
+```js
+const opts = {
+    host: '',
+    port: 22,
+    password: '',
+    username: 'root'
+}
+const ssh = await SSHClient.connect(opts)
+// 使用 toProxy 方法将会创建 ssh 对象的代理
+// 此代理会拦截 async 方法抛出的异常转换为错误事件 Exception 中的 AsyncFunctionError
+// 注意: 此代理是为了帮助用户使用自己的方法检测连接的连通性
+// node-ssh 底层的 ssh2 库的 close 事件有时候不能实时的反应连接的通断, 会在断网十几分钟后触发，因此
+// 使用 toProxy 在用户操作失败后使用自定义方式检测连接的连通性
+const sshProxy = await ssh.toProxy()
+const roots = await sshProxy.readPath('/')
+// 建立链接的代价是高昂的, 连续使用请保存 SSHClient 实例
+// 在完全使用完毕后关闭连接
+ssh.close()
+```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### 贡献
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.  本仓库发布在码云(Gitee), 有任何问题请提交 Issues
+2.  仓库地址 [ssh-node](https://gitee.com/fu-ws/ssh-node)

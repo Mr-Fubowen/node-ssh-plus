@@ -1,0 +1,8 @@
+.vscode
+node_modules
+test
+logs
+.prettierrc
+.gitignore
+.npmrc
+pnpm-lock.yaml
