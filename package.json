@@ -1,7 +1,7 @@
 {
     "name": "node-ssh-plus",
-    "version": "1.0.0",
-    "description": "增强 node-ssh 库中的功能, 提供常用函数实现",
+    "version": "1.0.1",
+    "description": "Enhance functionality in the node-ssh library by providing common function implementations",
     "main": "src/index.js",
     "scripts": {
         "prepublish": "npm version patch",
@@ -12,14 +12,13 @@
         "README.md"
     ],
     "repository": {
-        "type": "gitee",
-        "url": "https://gitee.com/fu-ws/ssh-node"
+        "type": "github",
+        "url": "https://github.com/Mr-Fubowen/node-ssh-plus"
     },
     "keywords": [
         "node-ssh",
         "ssh",
-        "ssh2",
-        "加密连接"
+        "ssh2"
     ],
     "author": "fubowen",
     "license": "MIT",
