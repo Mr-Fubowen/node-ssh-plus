@@ -632,6 +632,7 @@ class SSHClient extends NodeSSH {
                 serverFile,
                 error
             })
+            throw error
         }
     }
 
@@ -729,6 +730,7 @@ class SSHClient extends NodeSSH {
                 serverFile,
                 error
             })
+            throw error
         }
     }
 
