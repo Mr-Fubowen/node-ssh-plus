@@ -1,6 +1,6 @@
 {
     "name": "node-ssh-plus",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "Enhance functionality in the node-ssh library by providing common function implementations",
     "main": "src/index.js",
     "scripts": {

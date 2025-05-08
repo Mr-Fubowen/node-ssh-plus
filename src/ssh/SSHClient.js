@@ -305,7 +305,7 @@ class SSHClient extends NodeSSH {
         }
         const parentPath = dirname(serverPath)
         const now = new Date()
-        const timestamp = formatTime('YYYYMMDDHHmmss')
+        const timestamp = formatTime(now, 'yyyyMMddHHmmss')
         const newRemote = posix.join(parentPath, format('%s-%s%s', name, timestamp, ext))
         await this.copy(serverPath, newRemote)
     }
